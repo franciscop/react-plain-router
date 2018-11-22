@@ -1,4 +1,4 @@
-# React Plain Router [![npm install react-plain-router](https://img.shields.io/badge/npm%20install-react--plain--router-blue.svg)](https://www.npmjs.com/package/react-plain-router) [![gzip size](https://img.badgesize.io/franciscop/router/master/router.min.js.svg?compression=gzip)](https://github.com/franciscop/router/blob/master/router.min.js) [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/franciscop/router/blob/master/LICENSE)
+# React Plain Router [![npm install react-plain-router](https://img.shields.io/badge/npm%20install-react--plain--router-blue.svg)](https://www.npmjs.com/package/react-plain-router) [![gzip size](https://img.badgesize.io/franciscop/router/master/router.min.js.svg?compression=gzip)](https://github.com/franciscop/router/blob/master/router.min.js)
 
 A tiny React router that works exactly as expected with native Javascript:
 
