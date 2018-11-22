@@ -1,7 +1,7 @@
 {
   "name": "router",
   "version": "0.1.0",
-  "description": "A smaller and smarter router for React and Preact",
+  "description": "A better React router in 2kb",
   "main": "router.min.js",
   "scripts": {
     "build": "webpack -c",

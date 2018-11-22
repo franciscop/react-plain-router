@@ -1,6 +1,6 @@
 # React Plain Router
 
-A 2kb smarter and simple React router:
+A better React router in 2kb:
 
 ```js
 // App.js
