@@ -7,7 +7,7 @@ A tiny React router that works exactly as expected with native Javascript:
 import React from 'react';
 import router from 'react-plain-router';
 
-// Just wrap it and you can use native links
+// Wrap it and you can use links
 export default router(({ path, query, hash }) => (
   <div>
     <nav>
