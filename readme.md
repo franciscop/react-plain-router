@@ -1,4 +1,4 @@
-# React Plain Router [![npm install react-plain-router](https://img.shields.io/badge/npm%20install-react--plain--router-blue.svg)](https://www.npmjs.com/package/react-plain-router) [![gzip size](https://img.badgesize.io/franciscop/router/master/router.min.js.svg?compression=gzip)](https://github.com/franciscop/router/blob/master/router.min.js)
+# React Plain Router [![npm install react-plain-router](https://img.shields.io/badge/npm%20install-react--plain--router-blue.svg)](https://www.npmjs.com/package/react-plain-router) [![gzip size](https://img.badgesize.io/franciscop/router/master/router.min.js.svg?compression=gzip)](https://github.com/franciscop/router/blob/master/router.min.js) [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/franciscop/router/blob/master/LICENSE)
 
 A tiny React router that works exactly as expected with native Javascript:
 
@@ -23,9 +23,10 @@ export default router(({ path, query, hash }) => (
 
 You have to wrap your app with `router()` and then both `<a>` links and `window.history.pushState()` will work as expected. It will trigger a re-render when any of these properties change: `path`, `query` or `hash`.
 
-If you have parameters in your routes or more complex routes, you can combine it with my other package [`pagex`](https://github.com/franciscop/pagex) for a cleaner syntax:
+If you have parameters or complex routes you can combine it with my other library [`pagex`](https://github.com/franciscop/pagex) for a cleaner syntax:
 
 ```js
+import router from 'react-plain-router';
 import page from 'pagex';
 
 export default router(() => (
