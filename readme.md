@@ -1,6 +1,6 @@
 # React Plain Router
 
-A better React router in 2kb:
+A 2kb React router that works exactly as expected:
 
 ```js
 // App.js
