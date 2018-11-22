@@ -13,7 +13,7 @@ const getQuery = ({ searchParams }) => {
 const pair = ([k,v]) => encodeURIComponent(k) + '=' + encodeURIComponent(v);
 
 const createQuery = query => {
-  if (!query || !Object.keys(query).length) return false;
+  if (!query || !Object.keys(query).length) return '';
   return '?' + Object.entries(query).map(pair).join('&');
 };
 
