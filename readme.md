@@ -1,6 +1,6 @@
-# React Plain Router [![npm install react-plain-router](https://img.shields.io/badge/npm%20install-react--plain--router-blue.svg)](https://www.npmjs.com/package/brownies)
+# React Plain Router [![npm install react-plain-router](https://img.shields.io/badge/npm%20install-react--plain--router-blue.svg)](https://www.npmjs.com/package/react-plain-router) [![gzip size](https://img.badgesize.io/franciscop/router/master/router.min.js.svg?compression=gzip)](https://github.com/franciscop/router/blob/master/router.min.js)
 
-A 2kb React router that works exactly as expected:
+A tiny React router that works exactly as expected with native Javascript:
 
 ```js
 // App.js
@@ -10,20 +10,20 @@ import router from 'react-plain-router';
 // Just wrap it and you can use native links
 export default router(({ path, query, hash }) => (
   <div>
+    <nav>
+      <a href="/">Go Home</a>
+      <a href="/about">About us</a>
+    </nav>
+
     {path === '/' && <div>Hello world!</div>}
     {path === '/about' && <div>About me</div>}
-
-    <div>
-      <a href="/">Go Home</a>
-      <a href="/about">Go Home</a>
-    </div>
   </div>
 ));
 ```
 
-You have to wrap your app in the `router()` [HOC](https://reactjs.org/docs/higher-order-components.html) and then both `<a>` links and `window.history.pushState()` will work as expected. It will trigger a re-render when any of these properties change: `path`, `query` or `hash`.
+You have to wrap your app with `router()` and then both `<a>` links and `window.history.pushState()` will work as expected. It will trigger a re-render when any of these properties change: `path`, `query` or `hash`.
 
-If you have parameters in your routes or more complex routes, you can combine it with my other package [`pagex`](https://github.com/franciscop/pagex):
+If you have parameters in your routes or more complex routes, you can combine it with my other package [`pagex`](https://github.com/franciscop/pagex) for a cleaner syntax:
 
 ```js
 import page from 'pagex';
@@ -41,11 +41,11 @@ export default router(() => (
 
 ## router(cb)
 
-This functions accepts a callback, which will be triggered with these parameters:
+This [HOC](https://reactjs.org/docs/higher-order-components.html) function accepts a callback, which will be triggered with these parameters:
 
-- `path`, `pathname` (String): the current url path, similar to the native `pathname`. Example: for `/greetings` it will be `'/greetings'`. An empty URL is `'/'`.
-- `query` (Object|false): an object with key:values for the query in the url. Example: for `/greeting?hello=world` it will be `{ hello: 'world' }`.
-- `hash` (String|false): the hash value without the `#`. Example: for `/hello#there` it will be `there`.
+- `path`, `pathname` (String): the current url path, similar to the native `pathname`. Example: for `/greetings` it will be `'/greetings'`. An empty URL would be `'/'`.
+- `query` (Object | false): an object with key:values for the query in the url. Example: for `/greeting?hello=world` it will be `{ hello: 'world' }`.
+- `hash` (String | false): the hash value without the `#`. Example: for `/hello#there` it will be `'there'`.
 
 A fully qualified url will parse as this:
 
