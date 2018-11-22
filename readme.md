@@ -1,4 +1,4 @@
-# React Plain Router
+# React Plain Router [![npm install react-plain-router](https://img.shields.io/badge/npm%20install-react--plain--router-blue.svg)](https://www.npmjs.com/package/brownies)
 
 A 2kb React router that works exactly as expected:
 
@@ -7,8 +7,8 @@ A 2kb React router that works exactly as expected:
 import React from 'react';
 import router from 'react-plain-router';
 
-// Just this and everything is working as expected
-export default router(({ path }) => (
+// Just wrap it and you can use native links
+export default router(({ path, query, hash }) => (
   <div>
     {path === '/' && <div>Hello world!</div>}
     {path === '/about' && <div>About me</div>}
@@ -21,7 +21,7 @@ export default router(({ path }) => (
 ));
 ```
 
-You only need to wrap your app in the `router()` [HOC](https://reactjs.org/docs/higher-order-components.html) and then both `<a>` links and `window.history.pushState()` will work as expected. It will trigger a re-render when any of those changes: `path`, `query` or `hash`.
+You have to wrap your app in the `router()` [HOC](https://reactjs.org/docs/higher-order-components.html) and then both `<a>` links and `window.history.pushState()` will work as expected. It will trigger a re-render when any of these properties change: `path`, `query` or `hash`.
 
 If you have parameters in your routes or more complex routes, you can combine it with my other package [`pagex`](https://github.com/franciscop/pagex):
 
@@ -32,7 +32,7 @@ export default router(() => (
   <div>
     {page('/', () => <div>Hello world!</div>)}
     {page('/users', () => <ul>...</ul>)}
-    {page('/users/:id', (cat, id) => <User id={id} />)}
+    {page('/users/:id', id => <User id={id} />)}
   </div>
 ));
 ```
@@ -43,7 +43,7 @@ export default router(() => (
 
 This functions accepts a callback, which will be triggered with these parameters:
 
-- `path`, `pathname` (String): the current url path, similar to the native `pathname`. Example: for `/greetings` it will be `/greetings`.
+- `path`, `pathname` (String): the current url path, similar to the native `pathname`. Example: for `/greetings` it will be `'/greetings'`. An empty URL is `'/'`.
 - `query` (Object|false): an object with key:values for the query in the url. Example: for `/greeting?hello=world` it will be `{ hello: 'world' }`.
 - `hash` (String|false): the hash value without the `#`. Example: for `/hello#there` it will be `there`.
 
@@ -59,10 +59,74 @@ router(({ path, query, hash }) => {
 ```
 
 
-## Example: manual navigation
+## Example: navigation bar
 
-To trigger manual navigation you can use `history.pushState()`, but make sure to pass the right parameters:
+We can define our navigation in a different component. `<a>` are native so they will work cross-components:
 
 ```js
-
+// Nav.js
+export default () => (
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="https://google.com/">Go to Google</a>
+    <a href="/terms" target="_blank">Terms and Conditions</a>
+  </nav>
+);
 ```
+
+Then you can toggle the different pages in the main App.js:
+
+```js
+// App.js
+import router from 'react-plain-router';
+import Nav from './Nav';
+
+export default router(({ path }) => (
+  <div>
+    <Nav />
+    {path === '/' && <div>Homepage</div>}
+    {path === '/about' && <div>About us</div>}
+  </div>
+));
+```
+
+The Google link will open Google, and the Terms and Conditions link will open a new tab. Everything works as expected, in the same way native html works.
+
+
+## Example: simulating the `<Link>`
+
+Just an example of how easy it is to work with `react-plain-router`, let's see how to simulate the component that the library `react-router-dom` defines with this library
+
+```js
+// components/Link.js
+export default ({ to, ...props }) => <a href={to} {...props} />;
+```
+
+Then to use our newly defined component, we can import it and use it:
+
+```js
+// Home.js
+import router from 'react-plain-router';
+import Link from './components/Link';
+
+export default router(() => (
+  <Link to="/about">About us</Link>
+));
+```
+
+But you can just use native links:
+
+```js
+// Home.js
+import router from 'react-plain-router';
+
+export default router(() => (
+  <a href="/about">About us</a>
+));
+```
+
+
+## Example: manual navigation
+
+To trigger manual navigation you can use the native `history.pushState()` as [explained in the amazing Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/API/History_API):
