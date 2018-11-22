@@ -21,7 +21,7 @@ export default router(({ path }) => (
 ));
 ```
 
-It's only the router, no `<Link>`, `<Router>`, etc. needed. It works by using the natural bubbling events, catching those onClick events at the document level and manually following internal links. It uses `window.location` as the source of truth, instead of keeping an internal source of truth, which makes it more reliable.
+It's only the `router()` wrapper, no `<Link>`, `<Route>`, etc needed. Any `<a>` link will *just work* within your SPA. It works by using the natural bubbling events at the document level and manually following internal links. It uses `window.location` as the source of truth, instead of keeping an internal store, which makes it more reliable to interact with native Javascript like `window.history.pushState()`.
 
 If you have parameters in your routes or more complex routes, you can combine it with my other package `pagex`:
 
