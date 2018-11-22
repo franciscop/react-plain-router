@@ -21,19 +21,23 @@ export default router(({ path }) => (
 ));
 ```
 
-It's only the `router()` wrapper, no `<Link>`, `<Route>`, etc needed. Any `<a>` link will *just work* within your SPA. It works by using the natural bubbling events at the document level and manually following internal links. It uses `window.location` as the source of truth, instead of keeping an internal store, which makes it more reliable to interact with native Javascript like `window.history.pushState()`.
+You only need to wrap your app in the `router()` [HOC](https://reactjs.org/docs/higher-order-components.html) and then both `<a>` links and `window.history.pushState()` will work as expected. It will trigger a re-render when any of those changes: `path`, `query` or `hash`.
 
-If you have parameters in your routes or more complex routes, you can combine it with my other package `pagex`:
+If you have parameters in your routes or more complex routes, you can combine it with my other package [`pagex`](https://github.com/franciscop/pagex):
 
 ```js
+import page from 'pagex';
+
 export default router(() => (
   <div>
-    {pagex('/', () => <div>Hello world!</div>)}
-    {pagex('/users', () => <ul>...</ul>)}
-    {pagex('/users/:id', (cat, id) => <User id={id} />)}
+    {page('/', () => <div>Hello world!</div>)}
+    {page('/users', () => <ul>...</ul>)}
+    {page('/users/:id', (cat, id) => <User id={id} />)}
   </div>
 ));
 ```
+
+**Internally**, it works by using the bubbling events at the document level and then pushing internal links. `window.location` becomes the source of truth instead of keeping an internal or global store, which makes it more reliable to interact with native Javascript or http events.
 
 ## router(cb)
 
