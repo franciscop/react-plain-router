@@ -161,3 +161,12 @@ export default router(() => (
 ## Example: manual navigation
 
 To trigger manual navigation you can use the native `history.pushState()` as [explained in the amazing Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/API/History_API):
+
+```js
+// src/actions/login
+export default id => async dispatch => {
+  const payload = await ky(`/api/users/${id}`).json();
+  dispatch({ type: 'USER_DATA', payload });
+  window.history.pushState(`/dashboard`);
+};
+```
