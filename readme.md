@@ -167,6 +167,6 @@ To trigger manual navigation you can use the native `history.pushState()` as [ex
 export default id => async dispatch => {
   const payload = await ky(`/api/users/${id}`).json();
   dispatch({ type: 'USER_DATA', payload });
-  window.history.pushState(`/dashboard`);
+  window.history.pushState({}, 'Dashboard', `/dashboard`);
 };
 ```
