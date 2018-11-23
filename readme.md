@@ -38,11 +38,27 @@ export default router(() => (
 ));
 ```
 
-**Internally**, it works by using the bubbling events at the document level and then pushing internal links. `window.location` becomes the source of truth instead of keeping an internal or global store, which makes it more reliable to interact with native Javascript or http events.
+If a link has the attribute `target`, then this library will ignore it and let the browser handle it. This is very useful for `target="_blank"`, so that the link is opened in a new tab as usual. But it will also work with `target="_self"`, where the router will ignore the link and thus perform a full-refresh.
+
+An event named `navigation` will be triggered on `window` every time there's a re-render. You can see the parts with `e.detail`, which is very useful for debugging:
+
+```js
+// When loading /greetings?hello=world#nice
+window.addEventListener('navigation', e => {
+  console.log('NAVIGATION', e.detail);
+  // {
+  //   path: '/greetings',
+  //   query: { hello: 'world' },
+  //   hash: 'nice'
+  // }
+});
+```
+
+**Internally**, it works by using the bubbling events at the document level and then handling any link click. `window.location` becomes the source of truth instead of keeping an context or global store, which makes it more reliable to interact with native Javascript or http events.
 
 ## router(cb)
 
-This [HOC](https://reactjs.org/docs/higher-order-components.html) function accepts a callback, which will be triggered with these parameters:
+This [HOC](https://reactjs.org/docs/higher-order-components.html) function accepts a callback, which will be passed an arguments with the props from above and these 3 extra props:
 
 - `path`, `pathname` (String): the current url path, similar to the native `pathname`. Example: for `/greetings` it will be `'/greetings'`. An empty URL would be `'/'`.
 - `query` (Object | false): an object with key:values for the query in the url. Example: for `/greeting?hello=world` it will be `{ hello: 'world' }`.
@@ -52,12 +68,14 @@ A fully qualified url will parse as this:
 
 ```js
 // /greetings?hello=world#nice
-router(({ path, query, hash }) => {
+router(({ path, query, hash, ...props }) => {
   expect(path).toBe('/greetings');
   expect(query).toEqual({ hello: 'world' });
   expect(hash).toBe('nice');
 });
 ```
+
+
 
 
 ## Example: navigation bar
@@ -93,6 +111,18 @@ export default router(({ path }) => (
 ```
 
 The Google link will open Google, and the Terms and Conditions link will open a new tab. Everything works as expected, in the same way native html works.
+
+
+## Example: scroll to top on any navigation
+
+Add an event listener to the navigation event:
+
+```js
+window.addEventListener('navigation', e => {
+  window.scrollTo(0, 0);
+});
+```
+
 
 
 ## Example: simulating the `<Link>`

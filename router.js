@@ -44,7 +44,7 @@ export default Comp => class extends Component {
   clicked (e) {
     const link = e.target.closest('a[href]');
     if (!link) return;
-    if (link.getAttribute('target') === '_blank') return;
+    if (link.hasAttribute('target')) return;
     const href = link.getAttribute('href');
     if (!internal(href)) return;
     e.preventDefault();
