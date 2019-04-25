@@ -1,6 +1,6 @@
 {
   "name": "react-plain-router",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "🛣 A 2kb React router that works exactly as expected with native Javascript",
   "main": "router.min.js",
   "scripts": {
