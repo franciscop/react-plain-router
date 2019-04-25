@@ -64,7 +64,7 @@ export default Comp => class extends Component {
   componentDidMount () {
     document.body.addEventListener('click', this.clicked);
     window.addEventListener('popstate', this.browser);
-    this.interval = window.setInterval(this.refresh, 10);
+    this.interval = window.setInterval(this.refresh, 100);
   }
   componentWillUnmount () {
     document.body.removeEventListener('click', this.clicked);
