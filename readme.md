@@ -23,6 +23,20 @@ export default router(({ path, query, hash }) => (
 
 You have to wrap your app with `router()` and then both `<a>` links and `window.history.pushState()` will work as expected. It will trigger a re-render when any of these properties change: `path`, `query` or `hash`.
 
+If you have parameters or complex routes you can combine it with my other library [`pagex`](https://github.com/franciscop/pagex) for a cleaner syntax:
+
+```js
+import router from 'react-plain-router';
+import page from 'pagex';
+export default router(() => (
+  <div>
+    {page('/', () => <div>Hello world!</div>)}
+    {page('/users', () => <ul>...</ul>)}
+    {page('/users/:id', id => <User id={id} />)}
+  </div>
+));
+```
+
 If a link has the attribute `target`, then this library will ignore it and let the browser handle it. This is very useful for `target="_blank"`, so that the link is opened in a new tab as usual. But it will also work with `target="_self"`, where the router will ignore the link and thus perform a full-refresh.
 
 An event named `navigation` will be triggered on `window` every time there's a re-render. You can see the parts with `e.detail`, which is very useful for debugging:
